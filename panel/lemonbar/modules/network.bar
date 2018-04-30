@@ -1,0 +1,55 @@
+#!/bin/bash
+
+export wireless_interface="${wireless_interface:-wlp2s0}"
+
+network_icon="${network_icon:-\uf1eb}"
+network_icon_color_disconnected="${network_icon_color_disconnected:-#444}"
+
+IFACE_STATUS="$(iw dev ${wireless_interface} link)"
+ACTIVE_NETWORK="$(echo "$IFACE_STATUS" | grep SSID | sed 's/SSID:\(.*\)$/\1/')"
+SIGNAL_STRENGTH="$(echo "$IFACE_STATUS" | grep signal | sed 's/signal:\(.*\)\s\+dBm/\1/')"
+
+if [ -n "$ACTIVE_NETWORK" ]; then
+	echo $ACTIVE_NETWORK
+
+active_desktop_color="${active_desktop_color:-#555}"
+desktops_icon_spacing="${desktops_icon_spacing:-15}"
+
+DESKTOP_ID_LIST="$(bspc query -D)"
+CURRENT_ID_DESKTOP="$(bspc query -D -d focused)"
+
+print_desktops() {
+	echo -n 'text:"'
+	DESKTOP_LIST="$(bspc query -D)"
+	while IFS= read -r desktop; do
+		if [ "$desktop" == "$1" ]; then
+			echo -n "%{B${active_desktop_color}}"
+		fi
+		echo -n "%{O${desktops_icon_spacing}}"
+		echo -n "$(bspc query -D -d ${desktop} --names)"
+		echo -n "%{O${desktops_icon_spacing}}"
+		echo -n "%{B-}"
+	done <<< "$DESKTOP_LIST"
+	echo -n '"'
+}
+
+network_init() {
+	IFACE_STATUS="$(iw dev ${wireless_interface} link)"
+	ACTIVE_NETWORK="$(echo "$IFACE_STATUS" | grep SSID | sed 's/SSID:\(.*\)$/\1/')"
+	SIGNAL_STRENGTH="$(echo "$IFACE_STATUS" | grep signal | sed 's/signal:\(.*\)\s\+dBm/\1/')"
+	if [ -z "$ACTIVE_NETWORK" ]; then
+		IS_ACTIVE="connected"	
+	else
+		IS_ACTIVE="disconnected"	
+	fi
+	echo "network wireless ${IS_ACTIVE} ${ACTIVE_NETWORK}" > "$1"
+}
+
+if [ "$1" == "--init" ]; then
+	desktops_init "$2"
+	exit 0
+fi
+
+read -r request monitor cur_desktop
+[ "$request" == "desktop_focus" ] || exit 1
+print_desktops "$cur_desktop"

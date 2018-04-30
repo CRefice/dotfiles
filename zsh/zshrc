@@ -1,0 +1,39 @@
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+bindkey -v
+
+# Autocompletion
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' menu select
+setopt COMPLETE_ALIASES
+
+# Environment variables
+export EDITOR='vim --servername VIM'
+export VISUAL='vim --servername VIM'
+
+# Prompt customization
+source ~/.zsh/prompt.zsh
+BASE16_SHELL=$HOME/.config/base16/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+# Syntax highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+function mkdir_cd {
+	mkdir $1 && cd $1
+}
+
+# Aliases
+alias mkcd='mkdir_cd'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias vim='vim --servername VIM'
+alias spotify='spotify --force-device-scale-factor=1.25'
+
+# Fzf scripts
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
+export FZF_DEFAULT_COMMAND='rg --files --follow --glob "!.git/*"'

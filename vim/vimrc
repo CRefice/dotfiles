@@ -1,0 +1,119 @@
+"	General
+set nocompatible
+set autoread
+set history=700
+filetype plugin indent on
+syntax on
+if has('mouse')
+  set mouse=a
+endif
+
+"	Tabs, indent and text
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set backspace=eol,start,indent
+set autoindent
+set smartindent
+
+" Interface
+set number
+set ruler
+set cursorline
+set wildmenu
+set completeopt-=preview
+set laststatus=2
+
+set hid
+set lazyredraw
+
+set mat=2
+set showcmd
+set nolist
+set wrap
+set linebreak
+set breakat&vim
+
+set noshowmode
+set noerrorbells
+set novisualbell
+
+set fillchars+=vert:\ 
+
+" Searching
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+" Files
+set nobackup
+set nowb
+set noswapfile
+
+" Mappings and shortcuts
+set ttimeoutlen=10
+let mapleader=','
+let g:mapleader=','
+let maplocalleader='\'
+
+" Navigation mappings
+map j gj
+map k gk
+map Y y$
+noremap <Space> /
+nnoremap <CR> o<Esc>^
+
+map <silent> <Leader>n :nohlsearch<CR>
+map <silent> <Leader>w :w<CR>
+
+nnoremap gs :s/
+xnoremap gs y:%s/<C-r>"//g<Left><Left>
+
+nnoremap g= mmgg=G`m
+nnoremap gQ mmgggqG`m
+
+map <leader>l :Files<CR>
+
+" Utility functions
+source ~/.vim/funcs.vim
+
+" Plugin setup
+let g:ycm_confirm_extra_conf = 0
+let g:vimtex_view_method='zathura'
+let g:lightline = {
+			\   'active': {
+			\     'left':[ [ 'mode', 'paste' ],
+			\              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+			\     ]
+			\   },
+			\   'component': {
+			\     'lineinfo': ' %3l:%-2v',
+			\   },
+			\   'component_function': {
+			\     'gitbranch': 'fugitive#head',
+			\   }
+			\ }
+let g:lightline.separator = {
+	\   'left': '', 'right': ''
+  \}
+let g:lightline.subseparator = {
+	\   'left': '', 'right': '' 
+  \}
+
+" Theming
+let g:lightline.colorscheme = 'Tomorrow_Night_Bright'
+let base16colorspace=256
+source ~/.vimrc_background
+
+" Graphical interface
+if has("gui_running")
+	set guifont=Hack\ 12
+	set lines=30 columns=100
+	set guiheadroom=0
+
+	set guioptions-=m  "remove menu bar
+	set guioptions-=T  "remove toolbar
+	set guioptions-=r  "remove right-hand scroll bar
+	set guioptions-=L  "remove left-hand scroll bar
+endif

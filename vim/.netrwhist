@@ -1,0 +1,4 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/home/carlo/uni/oop/2018_Assignments/src/main/java/nl/rug/oop/helloWorld'
+let g:netrw_dirhist_2='/home/carlo/.vim'

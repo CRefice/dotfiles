@@ -1,0 +1,22 @@
+background: #151517
+foreground: #d5d8bc
+cursor: #d5d8bc
+
+accent: #5d836a
+
+term0:  #151517
+term1:  #5D836A
+term2:  #728C6D
+term3:  #9DA377
+term4:  #CDB87C
+term5:  #B1B385
+term6:  #C9BC85
+term7:  #d5d8bc
+term8:  #959783
+term9:  #5D836A
+term10: #728C6D
+term11: #9DA377
+term12: #CDB87C
+term13: #B1B385
+term14: #C9BC85
+term15: #d5d8bc

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+poweroff_icon="${poweroff_icon:-\uf011}"
+poweroff_command="${poweroff_command:-sudo poweroff}"
