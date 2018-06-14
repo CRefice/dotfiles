@@ -29,4 +29,4 @@ dunst &
 ~/.config/polybar/launch.sh
 xdo above -t $(xdo id -n root) $(xdo id -n polybar)
 
-xautolock -time 3 -locker "~/scripts/lock" -corners 0-00 -killtime 3 -killer "systemctl suspend"
+xautolock -time 5 -locker "~/scripts/lock" -corners 00-0 -cornersize 5 -killtime 5 -killer "systemctl suspend"

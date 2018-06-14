@@ -12,6 +12,7 @@ setopt COMPLETE_ALIASES
 # Environment variables
 export EDITOR='vim --servername VIM'
 export VISUAL='vim --servername VIM'
+export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Djdk.gtk.version=3"
 
 # Prompt customization
 source ~/.zsh/prompt.zsh
@@ -21,12 +22,11 @@ BASE16_SHELL=$HOME/.config/base16/
 # Syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Aliases
 function mkdir_cd {
 	mkdir $1 && cd $1
 }
-
-# Aliases
-alias mkcd='mkdir_cd'
+alias mkacd='mkdir_cd'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias vim='vim --servername VIM'
@@ -35,5 +35,4 @@ alias spotify='spotify --force-device-scale-factor=1.25'
 # Fzf scripts
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
-
 export FZF_DEFAULT_COMMAND='rg --files --follow --glob "!.git/*"'
