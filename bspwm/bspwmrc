@@ -3,7 +3,8 @@
 # launching utility apps
 sxhkd &
 compton -b --config ~/.config/compton.conf
-feh --bg-fill ~/wallpapers/Jupiter.jpg
+wal -R
+feh --bg-fill	~/wallpapers/Coffee.png
 
 # bspwm config
 MONITORS="$(xrandr | grep -E '\<connected\>' | cut -d' ' -f1)"
@@ -12,7 +13,7 @@ for monitor in $MONITORS; do
 	bspc monitor $monitor -d code browse desktop music
 done
 
-bspc config border_width					4
+bspc config border_width					3
 bspc config focused_border_color	'#E0E0E0'
 bspc config window_gap						20
 
