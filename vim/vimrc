@@ -80,27 +80,9 @@ map <leader>l :Files<CR>
 source ~/.vim/funcs.vim
 
 " Plugin setup
-let g:vimtex_view_method='zathura'
-let g:lightline = {
-			\   'active': {
-			\     'left':[ [ 'mode', 'paste' ],
-			\              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
-			\     ]
-			\   },
-			\   'component': {
-			\     'lineinfo': ' %3l:%-2v',
-			\   },
-			\   'component_function': {
-			\     'gitbranch': 'fugitive#head',
-			\   }
-			\ }
-let g:lightline.separator = {
-	\   'left': '', 'right': ''
-  \}
-let g:lightline.subseparator = {
-	\   'left': '', 'right': '' 
-  \}
+source ~/.vim/statline.vim
 
+let g:vimtex_view_method='zathura'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
@@ -120,9 +102,12 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 " Theming
-let g:lightline.colorscheme = 'Tomorrow_Night_Eighties'
-let base16colorspace=256
-source ~/.vimrc_background
+let g:lightline.colorscheme = 'Tomorrow_Night_Bright'
+
+if filereadable(expand("~/.vimrc_background"))
+	let base16colorspace=256
+	source ~/.vimrc_background
+endif
 
 " Graphical interface
 if has("gui_running")
