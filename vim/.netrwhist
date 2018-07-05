@@ -1,4 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/home/carlo/uni/oop/2018_group_1_s3455165_s3376508/cardGame/src/main/java/cardGame/controller'
-let g:netrw_dirhist_2='/home/carlo/.config/gtk-3.0'

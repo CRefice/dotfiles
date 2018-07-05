@@ -8,6 +8,18 @@ if has('mouse')
   set mouse=a
 endif
 
+" Backups and swapfiles
+set viminfo='20,\"90,h,%
+set dir=~/.vim/tmp/
+
+set backupdir=~/.vim/tmp/backup/
+set nobackup
+
+set undodir=~/.vim/tmp/undo/
+set undofile
+set undolevels=1000
+set undoreload=10000
+
 "	Tabs, indent and text
 set tabstop=2
 set softtabstop=2
@@ -46,11 +58,6 @@ set ignorecase
 set smartcase
 set hlsearch
 set incsearch
-
-" Files
-set nobackup
-set nowb
-set noswapfile
 
 " Mappings and shortcuts
 set ttimeoutlen=10
