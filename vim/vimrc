@@ -29,7 +29,6 @@ set autoindent
 set smartindent
 
 " Interface
-set number
 set ruler
 set cursorline
 set wildmenu
@@ -90,6 +89,7 @@ source ~/.vim/funcs.vim
 source ~/.vim/statline.vim
 
 let g:vimtex_view_method='zathura'
+let g:polyglot_disabled = ['latex']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
