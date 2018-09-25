@@ -22,7 +22,6 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
 bspc rule -a Firefox focus=on
-bspc rule -a Gvim state=floating
 bspc rule -a Galculator state=floating
 bspc rule -a Zathura state=tiled
 

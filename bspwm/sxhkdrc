@@ -19,13 +19,13 @@ XF86KbdBrightness{Up,Down}
 
 # music control
 XF86Audio{Prev,Next}
-	mpc {cdprev,next}
+	playerctl {previous,next}
 
 XF86AudioPlay
-	mpc toggle
+	playerctl play-pause
 
 XF86AudioStop
-	mpc stop
+	playerctl stop
 
 # terminal emulator
 super + Return
@@ -46,7 +46,7 @@ super + p
 
 # calculator
 XF86Calculator
-	galculator
+	rofi -show calc -modi calc -no-show-match -no-sort
 
 # make sxhkd reload its configuration files:
 super + Escape

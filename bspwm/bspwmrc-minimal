@@ -1,0 +1,7 @@
+#! /bin/sh
+
+# Launch sxhkd for keymaps
+sxhkd &
+feh --bg-fill	~/wallpapers/Coffee.png
+
+bspc monitor -d I
