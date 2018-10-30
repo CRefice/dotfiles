@@ -26,6 +26,8 @@ bspc rule -a Galculator state=floating
 bspc rule -a Zathura state=tiled
 
 dunst &
+# Launch music notifier
+~/scripts/music.py &> /dev/null &
 ~/.config/polybar/launch.sh
 xdo above -t $(xdo id -n root) $(xdo id -n polybar)
 
