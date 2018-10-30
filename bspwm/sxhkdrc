@@ -44,6 +44,9 @@ super + r
 super + p
 	rofi-pass
 
+super + v
+	lock --no-text
+
 # calculator
 XF86Calculator
 	rofi -show calc -modi calc -no-show-match -no-sort
