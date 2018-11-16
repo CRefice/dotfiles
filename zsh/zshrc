@@ -28,6 +28,13 @@ export EDITOR='vim --servername VIM'
 export VISUAL='vim --servername VIM'
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Djdk.gtk.version=3"
 
+# SSH - GPG integration
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+fi
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
 # Prompt customization
 source ~/.zsh/prompt.zsh
 BASE16_SHELL=$HOME/.config/base16-shell/
@@ -36,11 +43,11 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 # Syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Aliases
-function mkdir_cd {
+# Useful functions and aliases
+function mkacd {
 	mkdir $1 && cd $1
 }
-alias mkacd='mkdir_cd'
+source "scripts/devenv.sh"
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias vim='vim --servername VIM'
