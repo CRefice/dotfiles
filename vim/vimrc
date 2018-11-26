@@ -87,13 +87,11 @@ map <leader>l :Files<CR>
 source ~/.vim/funcs.vim
 
 " Plugin setup
-source ~/.vim/statline.vim
+source ~/.vim/config/lightline.vim
+source ~/.vim/config/ale.vim
 
 let g:vimtex_view_method='zathura'
 let g:polyglot_disabled = ['latex']
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 " Better search with RipGrep
 " --column: Show column number
