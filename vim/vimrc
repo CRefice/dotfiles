@@ -59,6 +59,16 @@ set smartcase
 set hlsearch
 set incsearch
 
+" Utility functions
+source ~/.vim/funcs.vim
+
+" Plugin setup
+source ~/.vim/config/lightline.vim
+source ~/.vim/config/ale.vim
+
+let g:vimtex_view_method='zathura'
+let g:polyglot_disabled = ['latex']
+
 " Mappings and shortcuts
 set ttimeoutlen=10
 let mapleader=','
@@ -82,16 +92,8 @@ nnoremap g= mmgg=G`m
 nnoremap gQ mmgggqG`m
 
 map <leader>l :Files<CR>
-
-" Utility functions
-source ~/.vim/funcs.vim
-
-" Plugin setup
-source ~/.vim/config/lightline.vim
-source ~/.vim/config/ale.vim
-
-let g:vimtex_view_method='zathura'
-let g:polyglot_disabled = ['latex']
+map <leader>f :Find 
+map <silent> <leader>r :ALEFix<CR>
 
 " Better search with RipGrep
 " --column: Show column number
