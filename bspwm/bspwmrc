@@ -4,7 +4,6 @@
 sxhkd &
 compton -b --config ~/.config/compton.conf
 wal -R
-feh --bg-fill	~/wallpapers/Coffee.png
 
 # bspwm config
 MONITORS="$(xrandr | grep -E '\<connected\>' | cut -d' ' -f1)"

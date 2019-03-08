@@ -1,5 +1,13 @@
 " Linting behavior
 let g:ale_lint_delay=1000
+let g:ale_cpp_clangtidy_checks = [
+\		'bugprone-*', 'cppcoreguidelines-*',
+\		'misc-*', 'modernize-*', 'performance-*'
+\]
+
+let g:ale_linters = {
+\		'cpp': ['clangtidy', 'clang', 'gcc'],
+\}
 
 " Fixing behavior
 let g:ale_fixers = {

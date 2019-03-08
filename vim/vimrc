@@ -116,6 +116,8 @@ if filereadable(expand("~/.vimrc_background"))
 	let base16colorspace=256
 	source ~/.vimrc_background
 endif
+hi SpellBad ctermbg=01
+hi SpellCap ctermbg=04
 
 " Graphical interface
 if has("gui_running")
