@@ -17,6 +17,7 @@ let g:ale_fixers = {
 \   'cpp': ['clang-format'],
 \   'rust': ['rustfmt'],
 \}
+let g:ale_c_clangformat_options = '-style=file'
 
 " Sign gutter
 let g:ale_sign_error = '✘'
