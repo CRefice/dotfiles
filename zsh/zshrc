@@ -45,7 +45,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 # Useful functions and aliases
 function mkacd {
-	mkdir $1 && cd $1
+	mkdir -p $1 && cd $1
 }
 source "/home/carlo/scripts/devenv.sh"
 alias ls='ls --color=auto'
