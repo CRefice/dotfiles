@@ -1,0 +1,83 @@
+#!/bin/bash
+
+DISPLAY_REGEX="([0-9]+)x([0-9]+)\\+([0-9]+)\\+([0-9]+)"
+MONITOR_REGEX="current ([0-9]+) x ([0-9]+)"
+IMAGE_REGEX="([0-9]+)x([0-9]+)"
+
+FOLDER="$(dirname "$(readlink -f "$0")")"
+LOCK_IMAGE="$FOLDER/lock.png"
+LOCK_IMAGE_INFO=$(identify $LOCK_IMAGE)
+[[ $LOCK_IMAGE_INFO =~ $IMAGE_REGEX ]]
+IMAGE_WIDTH=${BASH_REMATCH[1]}
+IMAGE_HEIGHT=${BASH_REMATCH[2]}
+[[ "$(xrandr | head -n1)" =~ $MONITOR_REGEX ]]
+MONITOR_WIDTH=${BASH_REMATCH[1]}
+MONITOR_HEIGHT=${BASH_REMATCH[2]}
+
+OUTPUT_IMAGE='/tmp/lock-threshold.png'
+LUMINOSITY=0
+MON_COUNT=0
+PARAMS=""
+
+while read LINE
+do
+  #If we are reading the line that contains the position information:
+  if [[ $LINE =~ $DISPLAY_REGEX ]]; then
+    #Extract information and append some parameters to the ones that will be given to ImageMagick:
+    WIDTH=${BASH_REMATCH[1]}
+    HEIGHT=${BASH_REMATCH[2]}
+    X=${BASH_REMATCH[3]}
+    Y=${BASH_REMATCH[4]}
+    POS_X=$(($X+$WIDTH/2-$IMAGE_WIDTH/2))
+    POS_Y=$(($Y+$HEIGHT/2-$IMAGE_HEIGHT/2))
+    PARAMS="$PARAMS '$LOCK_IMAGE' '-geometry' '+$POS_X+$POS_Y' '-composite'"
+
+		SQUARE_SZ=500
+    SQUARE_X=$(($X+$WIDTH/2-$SQUARE_SZ/2))
+    SQUARE_Y=$(($Y+$HEIGHT/2-$SQUARE_SZ/2))
+		# Take a screenshot of the portion of the screen the lock image will be in
+		scrot $OUTPUT_IMAGE -a "${SQUARE_X},${SQUARE_Y},${SQUARE_SZ},${SQUARE_SZ}"
+		# Identify the luminosity of the image
+		LUMA_LEVEL=$(identify -format "%[fx:mean]\n" $OUTPUT_IMAGE)
+		LUMINOSITY=$(bc -l <<< "${LUMINOSITY} + ${LUMA_LEVEL}")
+		MON_COUNT=$((MON_COUNT+1))
+
+  fi
+done <<<"$(xrandr)"
+
+PARAMS="-size ${MONITOR_WIDTH}x${MONITOR_HEIGHT} xc:transparent ${PARAMS}"
+
+# Compute average luminosity
+LUMINOSITY=$(bc -l <<< "${LUMINOSITY} / ${MON_COUNT}")
+if  (( $(echo "$LUMINOSITY > 0.4" | bc -l) )); then
+	COLOR=222222b0
+	PARAMS="${PARAMS} -channel RGB -negate"
+else
+	COLOR=ffffffff
+fi
+
+eval convert $PARAMS $OUTPUT_IMAGE
+
+i3lock --force-clock \
+	--timepos="ix:iy + r + 50" \
+	--timestr="%H:%M" \
+	--timecolor=$COLOR \
+	--datecolor=$COLOR \
+	--ringcolor=a0a0a0b0 \
+	--ringvercolor=a0a0a0b0 \
+	--ringwrongcolor=a0a0a0b0 \
+	--insidecolor=80808060 \
+	--insidevercolor=3030c060 \
+	--insidewrongcolor=c0303060 \
+	--keyhlcolor=ffffffff \
+	--bshlcolor=333333ff \
+	--separatorcolor=00000000 \
+	--timesize=50 \
+	--line-uses-inside \
+	--veriftext="" \
+	--wrongtext="Wrong!" \
+	--wrongcolor=ffffffff \
+	--noinputtext="" \
+	-B=2 \
+	-e \
+	-i $OUTPUT_IMAGE

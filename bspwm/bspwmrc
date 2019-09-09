@@ -5,6 +5,9 @@ sxhkd &
 compton -b --config ~/.config/compton.conf
 wal -R
 
+##Health-related scripts
+~/scripts/eyesaver.sh &
+
 # bspwm config
 MONITORS="$(xrandr | grep -E '\<connected\>' | cut -d' ' -f1)"
 
