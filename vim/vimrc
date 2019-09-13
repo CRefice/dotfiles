@@ -6,7 +6,7 @@ set history=700
 filetype plugin indent on
 syntax on
 if has('mouse')
-  set mouse=a
+	set mouse=a
 endif
 
 " Backups and swapfiles
@@ -51,7 +51,7 @@ set noshowmode
 set noerrorbells
 set novisualbell
 
-set fillchars+=vert:\ 
+set fillchars+=vert:\
 
 " Searching
 set ignorecase
@@ -80,7 +80,6 @@ map j gj
 map k gk
 map Y y$
 noremap <Space> /
-nnoremap <CR> o<Esc>^
 
 map <silent> <Leader>n :nohlsearch<CR>
 map <silent> <Leader>w :w<CR>
@@ -89,10 +88,9 @@ nnoremap gs :s/
 xnoremap gs y:%s/<C-r>"//g<Left><Left>
 
 nnoremap g= mmgg=G`m
-nnoremap gQ mmgggqG`m
 
 map <leader>l :Files<CR>
-map <leader>f :Find 
+map <leader>f :Find
 map <silent> <leader>r :ALEFix<CR>
 
 " Better search with RipGrep
