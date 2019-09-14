@@ -28,6 +28,7 @@ set shiftwidth=2
 set backspace=eol,start,indent
 set autoindent
 set smartindent
+set smarttab
 
 " Interface
 set ruler
