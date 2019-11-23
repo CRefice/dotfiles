@@ -37,3 +37,6 @@
 [submodule "vim/pack/plugins/start/base16-vim"]
 	path = vim/pack/plugins/start/base16-vim
 	url = https://github.com/danielwe/base16-vim.git
+[submodule "vim/pack/plugins/start/rascal.vim"]
+	path = vim/pack/plugins/start/rascal.vim
+	url = https://github.com/Kranex/rascal.vim.git
