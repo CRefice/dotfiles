@@ -49,7 +49,7 @@ font-4 = "xft:Roboto:size=11;3"
 
 modules-left = bspwm 
 modules-center = music
-modules-right = weather battery wlan eth volume date
+modules-right = weather battery wlan volume date
 
 tray-position = right
 tray-padding = 2
