@@ -109,8 +109,11 @@ super + {_,shift + }c
 	bspc node -f {next,prev}.local
 
 # focus or send to the next/previous desktop in the current monitor
-super + {_, shift + }bracket{left,right}
-	bspc {desktop -f, node -d} {prev,next}.local --follow
+super + shift + bracket{left,right}
+	bspc node -d {prev,next}.local --follow
+
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local 
 
 # focus or send to the next/previous monitor
 super + {_, shift + }alt + bracket{left,right}

@@ -5,15 +5,16 @@ sxhkd &
 compton -b --config ~/.config/compton.conf
 wal -R
 
-##Health-related scripts
-~/scripts/eyesaver.sh &
-
 # bspwm config
-MONITORS="$(xrandr | grep -E '\<connected\>' | cut -d' ' -f1)"
+MON_COUNT="$(xrandr | grep -E '\<connected\>' | wc -l)"
 
-for monitor in $MONITORS; do
-	bspc monitor $monitor -d code browse desktop music
-done
+if [[ $MON_COUNT -gt 1 ]]; then
+	# Multiple monitors
+	bspc monitor 'eDP-1' -d desktop
+	bspc monitor 'HDMI-2' -f -d code browse desktop music
+else
+	bspc monitor 'eDP-1' -d code browse desktop music
+fi
 
 bspc config border_width					3
 bspc config focused_border_color	'#E0E0E0'
@@ -23,14 +24,15 @@ bspc config split_ratio          0.5
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-bspc rule -a Firefox focus=on
-bspc rule -a Galculator state=floating
+bspc rule -a 'firefox:Navigator' desktop=browse private=on
 bspc rule -a Zathura state=tiled
 
 dunst &
+firefox &
 # Launch music notifier
 ~/scripts/music.py &> /dev/null &
 ~/.config/polybar/launch.sh
 xdo above -t $(xdo id -n root) $(xdo id -n polybar)
 
 xautolock -time 5 -locker "~/scripts/lock" -corners 00-0 -cornersize 5 -killtime 5 -killer "systemctl suspend"
+
