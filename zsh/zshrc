@@ -43,15 +43,15 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 # Syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Custom functions
+fpath=(~/.zsh/funcs ${fpath[@]})
+autoload -Uz dev
+
 # Useful functions and aliases
 function mkacd {
 	mkdir -p $1 && cd $1
 }
-source "/home/carlo/scripts/devenv.sh"
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias vim='vim --servername VIM'
-alias spotify='spotify --force-device-scale-factor=1.25'
+source ~/.zsh/aliases
 
 # Fzf scripts
 source /usr/share/fzf/key-bindings.zsh

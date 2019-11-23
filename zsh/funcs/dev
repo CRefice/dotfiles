@@ -1,0 +1,68 @@
+#!/bin/bash
+
+function _read_var_file() {
+	# Read the file line by line.
+	while read -r line; do
+		declare -- "$line"
+	done < $1
+}
+
+function _find_dir() {
+	local results="$(fd $2 $1 --type d | head -n 1)"
+	[ ! -z "$results" ] && echo $results
+}
+
+function _cache_loc() {
+	local cached="${HOME}/.cache/devenv/$1"
+	echo $cached >> ~/log.txt
+	if [[ ! -L "$cached" ]]; then
+		echo "no link found" >> ~/log.txt
+		return 1
+	fi
+
+	if [[ -d $cached ]]; then
+		readlink -f $cached
+	else
+		rm $cached
+		false
+	fi
+}
+
+function _find_project() {
+	if [[ -d "$1" ]]; then
+		echo $1
+	elif [[ ! -z "$(_cache_loc $1)" ]]; then
+		_cache_loc $1
+	else
+		local result="$( (_find_dir ~/projects $1) || (_find_dir ~/uni $1) )"
+		if [ -z $result ]; then
+			false
+		else
+			ln -s "$result" "${HOME}/.cache/devenv/$1" 
+			echo $result
+		fi
+	fi
+}
+
+function dev() {
+	if [[ $# -eq 0 ]]; then
+		export PROJ_DIR=$PWD
+	else
+		export PROJ_DIR=$(_find_project $1)
+		[ -d "$PROJ_DIR" ] || { echo "No project named $1 found"; return 1; }
+	fi
+	export PROJ_NAME=$(basename $PROJ_DIR)
+
+	tmux new -s $PROJ_NAME -d -c $PROJ_DIR -n "code" 2> /dev/null || tmux attach
+
+	local CONFIG_FILE="${HOME}/.config/devenv/${PROJ_NAME}"
+	if [ -f $CONFIG_FILE ]; then
+		tmux source $CONFIG_FILE
+	else
+		tmux splitw -h -c $PROJ_DIR -p 25
+	fi
+	tmux attach
+}
+
+mkdir -p ~/.cache/devenv
+dev "$@"
