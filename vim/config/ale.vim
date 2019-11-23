@@ -5,7 +5,8 @@ let g:ale_cpp_gcc_options = '-std=c++17 -Wall'
 
 let g:ale_cpp_clangtidy_checks = [
 			\		'bugprone-*', 'cppcoreguidelines-*',
-			\		'misc-*', 'modernize-*', 'performance-*'
+			\		'misc-*', 'modernize-*', '-modernize-use-trailing-return-type',
+			\		'performance-*'
 			\]
 
 let g:ale_linters = {
@@ -15,7 +16,10 @@ let g:ale_linters = {
 " Fixing behavior
 let g:ale_fixers = {
 			\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-			\   'javascript': ['eslint'],
+			\   'javascript': ['prettier'],
+			\   'vue': ['prettier'],
+			\   'html': ['prettier'],
+			\   'css': ['prettier'],
 			\   'c': ['clang-format'],
 			\   'python': ['black', 'isort'],
 			\   'cpp': ['clang-format'],

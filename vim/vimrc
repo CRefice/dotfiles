@@ -3,6 +3,8 @@ set nocompatible
 set autoread
 set hidden
 set history=700
+set modeline
+set modelines=5
 filetype plugin indent on
 syntax on
 if has('mouse')
@@ -91,7 +93,7 @@ xnoremap gs y:%s/<C-r>"//g<Left><Left>
 nnoremap g= mmgg=G`m
 
 map <leader>l :Files<CR>
-map <leader>f :Find
+map <leader>f :Find 
 map <silent> <leader>r :ALEFix<CR>
 
 " Better search with RipGrep
