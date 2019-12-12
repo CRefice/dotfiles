@@ -2,7 +2,7 @@
 
 # launching utility apps
 sxhkd &
-compton -b --config ~/.config/compton.conf
+picom -b
 wal -R
 
 # bspwm config
