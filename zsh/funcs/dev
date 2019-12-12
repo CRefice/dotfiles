@@ -14,9 +14,7 @@ function _find_dir() {
 
 function _cache_loc() {
 	local cached="${HOME}/.cache/devenv/$1"
-	echo $cached >> ~/log.txt
 	if [[ ! -L "$cached" ]]; then
-		echo "no link found" >> ~/log.txt
 		return 1
 	fi
 
