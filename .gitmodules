@@ -31,9 +31,6 @@
 [submodule "vim/pack/plugins/start/vim-polyglot"]
 	path = vim/pack/plugins/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
-[submodule "vim/pack/plugins/start/wal.vim"]
-	path = vim/pack/plugins/start/wal.vim
-	url = https://github.com/dylanaraps/wal.vim.git
 [submodule "vim/pack/plugins/start/base16-vim"]
 	path = vim/pack/plugins/start/base16-vim
 	url = https://github.com/danielwe/base16-vim.git
