@@ -22,9 +22,6 @@
 [submodule "vim/pack/plugins/start/ale"]
 	path = vim/pack/plugins/start/ale
 	url = https://github.com/dense-analysis/ale.git
-[submodule "vim/pack/plugins/start/vim-surround"]
-	path = vim/pack/plugins/start/vim-surround
-	url = https://github.com/tpope/vim-surround
 [submodule "vim/pack/plugins/start/vim-colorschemes"]
 	path = vim/pack/plugins/start/vim-colorschemes
 	url = https://github.com/flazz/vim-colorschemes
@@ -37,3 +34,6 @@
 [submodule "vim/pack/plugins/start/rascal.vim"]
 	path = vim/pack/plugins/start/rascal.vim
 	url = https://github.com/Kranex/rascal.vim.git
+[submodule "vim/pack/plugins/start/vim-sandwich"]
+	path = vim/pack/plugins/start/vim-sandwich
+	url = https://github.com/machakann/vim-sandwich.git

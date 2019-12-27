@@ -1,6 +1,6 @@
 #!/bin/bash
 
-firefox_profile="qrn2qtba.default-1509559686085"
+firefox_profile="ax9ogawo.default-release"
 
 # Takes scale factor as argument
 function firefox_scale {
