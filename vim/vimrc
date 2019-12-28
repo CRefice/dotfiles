@@ -78,6 +78,8 @@ noremap <Space> /
 " Use sane behavior for yanking until end of line
 map Y y$
 
+" Shortcuts for writing and highlighting
+map <leader>w :w<CR>
 map <silent> <Leader>n :nohlsearch<CR>
 
 " Quick search
@@ -90,7 +92,6 @@ nnoremap g= mmgg=G`m
 
 map <leader>l :Files<CR>
 map <leader>f :Find
-map <silent> <leader>w :ALEFix<CR>
 
 " Colorscheme
 if filereadable(expand("~/.vimrc_background"))
