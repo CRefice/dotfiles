@@ -36,7 +36,7 @@ function _find_project() {
 		if [ -z $result ]; then
 			false
 		else
-			ln -s "$result" "${HOME}/.cache/devenv/$1" 
+			ln -s "$result" "${HOME}/.cache/devenv/$1"
 			echo $result
 		fi
 	fi

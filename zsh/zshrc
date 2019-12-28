@@ -18,42 +18,57 @@ setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 bindkey -v
 
 # Autocompletion
-autoload -Uz compinit
-compinit
+autoload -Uz compinit; compinit
 zstyle ':completion:*' menu select
 setopt COMPLETE_ALIASES
 
-# Environment variables
-export EDITOR='vim --servername VIM'
-export VISUAL='vim --servername VIM'
-export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Dswing.crossplatformlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel -Djdk.gtk.version=3"
-
-# SSH - GPG integration
-if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
-  export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-fi
-export GPG_TTY=$(tty)
-gpg-connect-agent updatestartuptty /bye >/dev/null
-
 # Prompt customization
-source ~/.zsh/prompt.zsh
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+autoload -Uz promptinit; promptinit
+prompt spaceship
+SPACESHIP_PROMPT_ORDER=(
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  venv          # virtualenv section
+  exec_time     # Execution time
+  line_sep      # Line break
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+if [ -z "$DISPLAY" ]; then
+	SPACESHIP_CHAR_SYMBOL='> '
+else
+	SPACESHIP_CHAR_SYMBOL='❯ '
+fi
 
-# Syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Custom functions
+# Base16 color scheme management
+BASE16_SHELL=$HOME/dotfiles/base16-shell/
+[[ -o interactive ]] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+# Custom zsh functions
 fpath=(~/.zsh/funcs ${fpath[@]})
-autoload -Uz dev
+autoload -Uz dev mkacd
 
-# Useful functions and aliases
-function mkacd {
-	mkdir -p $1 && cd $1
-}
-source ~/.zsh/aliases
+# Useful aliases
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias g='git'
+
+# Alias git (alias) to g(alias)
+list=($(git config --get-regexp '^alias\.' \
+	| sed 's/^alias\.//' \
+	| cut -d' ' -f1))
+for al in $list; do
+	alias "g${al}"="git $al"
+done
 
 # Fzf scripts
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 export FZF_DEFAULT_COMMAND='rg --files --follow --glob "!.git/*"'
+
+# Syntax highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
