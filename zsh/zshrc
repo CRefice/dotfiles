@@ -42,6 +42,7 @@ if [ -z "$DISPLAY" ]; then
 else
 	SPACESHIP_CHAR_SYMBOL='❯ '
 fi
+SPACESHIP_DIR_COLOR=blue
 
 
 # Base16 color scheme management
