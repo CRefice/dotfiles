@@ -73,7 +73,7 @@ xnoremap gs y:%s/<C-r>"//g<Left><Left>
 nnoremap g= mmgg=G`m
 
 map <leader>l :Files<CR>
-map <leader>g :Find 
+map <leader>g :Find
 
 " Colorscheme
 if filereadable(expand("~/.vimrc_background"))
