@@ -1,68 +1,50 @@
-"	General
-set nocompatible
+" General
+filetype plugin indent on
 set autoread
 set hidden
-set history=700
+set history=100
 set modeline
 set modelines=5
-filetype plugin indent on
+set nocompatible
 syntax on
 if has('mouse')
 	set mouse=a
 endif
 
-" Backups and swapfiles
-runtime var.vim " Useful variables
+" Undo and swapfiles
+runtime var.vim
 set viminfo='20,\"90,h,%
-set dir=$DIR
-
-set backupdir=$DIR/backup/
-set nobackup
+set dir^=$DIR
 
 set undodir=$DIR/undo/
 set undofile
 set undolevels=1000
 set undoreload=10000
 
-"	Tabs, indent and text
-set tabstop=2
-set softtabstop=2
+" Tabs, indent and text
 set shiftwidth=2
-set backspace=eol,start,indent
+set tabstop=2
 set autoindent
-set smartindent
-set smarttab
 
 " Interface
-set ruler
 set cursorline
-set wildmenu
-set completeopt-=preview
 set laststatus=2
-set diffopt=vertical
-
-set hid
 set lazyredraw
-
-set mat=2
-set showcmd
-set nolist
-set wrap
 set linebreak
-set breakat&vim
-
 set noshowmode
-set noerrorbells
-set novisualbell
+set wildmenu
 
-set fillchars+=vert:\
+" Don't display vertical splits as separated by pipes
+set fillchars+=vert:\ 
+
+set completeopt-=preview
+set diffopt=internal,filler,vertical,context:4,algorithm:patience,indent-heuristic
 
 " Searching
 set ignorecase
 set smartcase
 set hlsearch
 set incsearch
-
 
 " Mappings and shortcuts
 set ttimeoutlen=10
@@ -78,11 +60,11 @@ noremap <Space> /
 " Use sane behavior for yanking until end of line
 map Y y$
 
-" Shortcuts for writing and highlighting
 map <leader>w :w<CR>
 map <silent> <Leader>n :nohlsearch<CR>
+map <silent> <Leader>f :ALEGoToDefinition<CR>
 
-" Quick search
+" Quick replace
 nnoremap gs :%s/
 " Replace selected text in whole buffer
 xnoremap gs y:%s/<C-r>"//g<Left><Left>
@@ -91,7 +73,7 @@ xnoremap gs y:%s/<C-r>"//g<Left><Left>
 nnoremap g= mmgg=G`m
 
 map <leader>l :Files<CR>
-map <leader>f :Find
+map <leader>g :Find 
 
 " Colorscheme
 if filereadable(expand("~/.vimrc_background"))
@@ -107,18 +89,20 @@ if has("gui_running")
 	set lines=30 columns=100
 	set guiheadroom=0
 
-	set guioptions-=m  "remove menu bar
-	set guioptions-=T  "remove toolbar
-	set guioptions-=r  "remove right-hand scroll bar
-	set guioptions-=L  "remove left-hand scroll bar
+	set guioptions-=m  " Remove menu bar
+	set guioptions-=T  " Remove toolbar
+	set guioptions-=r  " Remove right-hand scroll bar
+	set guioptions-=L  " Remove left-hand scroll bar
 endif
 
-" Linting/Fixing
+" LSP Integration
 let g:ale_lint_delay = 1000 " Reduce lint delay to once a second to save battery
-let g:ale_echo_msg_format = '[%linter%] %s' "Include linter name in error statusline
+let g:ale_echo_msg_format = '[%linter%] %s' " Include linter name in error statusline
 
 let g:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace'] }
 let g:ale_fix_on_save = 1
+
+set omnifunc=ale#completion#OmniFunc
 
 " Other Plugins
 let g:polyglot_disabled = ['latex']
