@@ -44,6 +44,9 @@ else
 fi
 SPACESHIP_DIR_COLOR=blue
 
+# GPG SSH Agent configuration
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
 
 # Base16 color scheme management
 BASE16_SHELL=$HOME/dotfiles/base16-shell/
