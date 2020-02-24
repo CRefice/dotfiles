@@ -22,9 +22,6 @@
 [submodule "vim/pack/plugins/start/ale"]
 	path = vim/pack/plugins/start/ale
 	url = https://github.com/dense-analysis/ale.git
-[submodule "vim/pack/plugins/start/vim-colorschemes"]
-	path = vim/pack/plugins/start/vim-colorschemes
-	url = https://github.com/flazz/vim-colorschemes
 [submodule "vim/pack/plugins/start/vim-polyglot"]
 	path = vim/pack/plugins/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
