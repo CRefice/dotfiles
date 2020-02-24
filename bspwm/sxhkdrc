@@ -108,16 +108,24 @@ super + {p,b,comma,period}
 super + {_,shift + }c
 	bspc node -f {next,prev}.local
 
-# focus or send to the next/previous desktop in the current monitor
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# send to the next/previous desktop in the current monitor
 super + shift + bracket{left,right}
 	bspc node -d {prev,next}.local --follow
 
-super + bracket{left,right}
-	bspc desktop -f {prev,next}.local 
+# focus the next/previous monitor
+super + alt + bracket{left,right}
+	bspc monitor -f {prev,next}
 
-# focus or send to the next/previous monitor
-super + {_, shift + }alt + bracket{left,right}
-	bspc {monitor -f, node -m} {prev,next} --follow
+# send to the next/previous monitor
+super + shift + alt + bracket{left,right}
+	desk=`bspc query -D -d focused`; \
+  bspc desktop -m {prev,next}; \
+  bspc monitor -f {prev,next}; \
+  bspc desktop -f $desk
 
 # focus the last node/desktop
 super + {grave,Tab}
