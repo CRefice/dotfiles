@@ -35,7 +35,7 @@ set noshowmode
 set wildmenu
 
 " Don't display vertical splits as separated by pipes
-set fillchars+=vert:\ 
+set fillchars+=vert:\
 
 set completeopt-=preview
 set diffopt=internal,filler,vertical,context:4,algorithm:patience,indent-heuristic
@@ -77,11 +77,21 @@ map <leader>g :Find
 
 " Colorscheme
 if filereadable(expand("~/.vimrc_background"))
+	" Default base16 spell highlighting on terminal
+	" uses white text on a bright background,
+	" so change text color to black
+	function! s:base16_customize() abort
+		call Base16hi("SpellCap", "", "", g:base16_cterm01, g:base16_cterm0D, "", "")
+	endfunction
+
+	augroup on_change_colorschema
+		autocmd!
+		autocmd ColorScheme * call s:base16_customize()
+	augroup END
+
 	let base16colorspace=256
 	source ~/.vimrc_background
 endif
-hi SpellBad ctermbg=01
-hi SpellCap ctermbg=04
 
 " Graphical interface
 if has("gui_running")
