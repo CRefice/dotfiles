@@ -42,7 +42,6 @@ if [ -z "$DISPLAY" ]; then
 else
 	SPACESHIP_CHAR_SYMBOL='❯ '
 fi
-SPACESHIP_DIR_COLOR=blue
 
 # GPG SSH Agent configuration
 export GPG_TTY=$(tty)
@@ -68,6 +67,16 @@ list=($(git config --get-regexp '^alias\.' \
 for al in $list; do
 	alias "g${al}"="git $al"
 done
+
+man() {
+	LESS_TERMCAP_md=$'\e[01;31m' \
+	LESS_TERMCAP_me=$'\e[0m' \
+	LESS_TERMCAP_se=$'\e[0m' \
+	LESS_TERMCAP_so=$'\e[01;44;33m' \
+	LESS_TERMCAP_ue=$'\e[0m' \
+	LESS_TERMCAP_us=$'\e[01;32m' \
+	command man "$@"
+}
 
 # Fzf scripts
 source /usr/share/fzf/key-bindings.zsh
