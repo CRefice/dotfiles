@@ -38,7 +38,7 @@ set wildmenu
 set fillchars+=vert:\
 
 set completeopt-=preview
-set diffopt=internal,filler,vertical,context:4,algorithm:patience,indent-heuristic
+set diffopt=internal,filler,vertical,context:4,indent-heuristic
 
 " Searching
 set ignorecase
@@ -61,13 +61,15 @@ noremap <Space> /
 map Y y$
 
 map <leader>w :w<CR>
+map <leader>q :qa<CR>
+map <leader>x :xa<CR>
 map <silent> <Leader>n :nohlsearch<CR>
 map <silent> <Leader>f :ALEGoToDefinition<CR>
 
 " Quick replace
 nnoremap gs :%s/
 " Replace selected text in whole buffer
-xnoremap gs y:%s/<C-r>"//g<Left><Left>
+xnoremap gs y:%sno/<C-r>"//g<Left><Left>
 
 " Reindent whole buffer
 nnoremap g= mmgg=G`m
@@ -81,7 +83,8 @@ if filereadable(expand("~/.vimrc_background"))
 	" uses white text on a bright background,
 	" so change text color to black
 	function! s:base16_customize() abort
-		call Base16hi("SpellCap", "", "", g:base16_cterm01, g:base16_cterm0D, "", "")
+		call Base16hi("SpellCap", "", "", g:base16_cterm01, "", "", "")
+		call Base16hi("SpellBad", "", "", g:base16_cterm01, "", "", "")
 	endfunction
 
 	augroup on_change_colorschema

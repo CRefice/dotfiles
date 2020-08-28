@@ -11,7 +11,7 @@ XF86AudioMute
 
 # monitor brightness
 XF86MonBrightness{Up,Down}
-	alight {inc,dec} 10 -t 400 -s 25 -f 5
+	alight {inc,dec} 10 -t 10 -f 5
 
 # keyboard brightness
 XF86KbdBrightness{Up,Down}
@@ -33,27 +33,22 @@ super + Return
 
 # program launcher
 super + @space
-	rofi -show run
+	rofi -show drun -dpi 1
 
 # programs
-#super + o ; {w,f}
-	#{firefox,thunar}
 super + r
 	firefox
-
-super + p
-	rofi-pass
 
 super + v
 	lock --no-text
 
-# calculator
-XF86Calculator
-	rofi -show calc -modi calc -no-show-match -no-sort
-
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
+
+# calculator
+XF86Calculator
+	rofi -show calc -modi calc -no-show-match -no-sort
 
 #
 # bspwm hotkeys
