@@ -1,0 +1,16 @@
+#include ".Xresdpi"
+
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintmedium
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+URxvt.depth: 32
+URxvt.scrollBar: false
+URxvt.cursorBlink: 1
+URxvt.font: xft:Hack:size=12, xft:FreeMono:style=Regular:size=12
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
