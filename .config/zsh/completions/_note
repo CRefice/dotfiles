@@ -1,0 +1,5 @@
+#compdef _note note
+
+_note() {
+	compadd $(ls "${HOME}/notes" | xargs -i basename {} ".md")
+}

@@ -1,0 +1,5 @@
+#compdef _dev dev
+
+_dev() {
+	compadd $(ls "${HOME}/.cache/devenv")
+}
