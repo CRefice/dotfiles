@@ -1,0 +1,5 @@
+configuration {
+	theme: "sidebar";
+	font: "Iosevka Term 12";
+	modi: "drun,run,ssh,calc";
+}
