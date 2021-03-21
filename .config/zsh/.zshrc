@@ -11,6 +11,7 @@ bindkey '^x^e' edit-command-line
 # Autocompletion
 fpath+=($ZDOTDIR/completions)
 autoload -Uz compinit; compinit
+setopt complete_aliases
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' menu select=2

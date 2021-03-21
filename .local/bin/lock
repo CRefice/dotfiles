@@ -1,0 +1,51 @@
+#!/bin/bash
+
+set -e
+
+if [[ $# -eq 0 ]]; then
+	OUTPUT_IMAGE="${HOME}/.cache/i3lock/last"
+	if [[ ! -f $OUTPUT_IMAGE ]]; then
+		echo "Error: no cached image found. Run the program with an argument for the first time."
+		exit 1
+	fi
+else
+	IMAGE="$(readlink -f $1)"
+	OUTPUT_IMAGE="${HOME}/.cache/i3lock/$(basename $1)"
+	if [[ ! -f $OUTPUT_IMAGE ]]; then
+		convert $IMAGE -blur 0x3 -brightness-contrast -20x0 $OUTPUT_IMAGE
+	fi
+
+	ln -s "$OUTPUT_IMAGE" "${HOME}/.cache/i3lock/last"
+fi
+
+i3lock --force-clock \
+	--radius=40 \
+	--ring-width=5 \
+	--indpos="x + r + 220:y + h - r - 50" \
+	--timepos="ix - (80 + r):iy" \
+	--timestr="%H:%M" \
+	--timecolor=eeeeeeb0 \
+	--datecolor=eeeeeeb0 \
+	--ringcolor=a0a0a0b0 \
+	--ringvercolor=a0a0a0b0 \
+	--ringwrongcolor=a0a0a0b0 \
+	--insidecolor=80808060 \
+	--insidevercolor=3030c060 \
+	--insidewrongcolor=c0303060 \
+	--keyhlcolor=ffffffff \
+	--bshlcolor=333333ff \
+	--separatorcolor=00000000 \
+	--timesize=45 \
+	--verifsize=12 \
+	--verifcolor=eeeeeeb0 \
+	--line-uses-inside \
+	--veriftext="" \
+	--greetertext="" \
+	--greeterpos="ix:iy + 15" \
+	--greeter-font="Symbols Nerd Font" \
+	--greetersize=50\
+	--greetercolor=eeeeeeb0 \
+	--wrongtext="Wrong!" \
+	--wrongcolor=eeeeeeb0 \
+	--noinputtext="" \
+	-i $OUTPUT_IMAGE
