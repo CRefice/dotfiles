@@ -1,7 +1,6 @@
 #============================
 # Input/line editing bindings
 #============================
-
 # Enable vi-like line editing
 bindkey -v
 # Control-x-e to open current line in $EDITOR, awesome when writting functions or editing multiline commands.
@@ -19,15 +18,19 @@ zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %
 zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
 
-# Directory history/stack
-# Keep history of `cd` as in with `pushd` and make `cd -<TAB>` work.
+#========================
+# Directory management
+#========================
 DIRSTACKSIZE=16
+# Keep history of `cd` as in with `pushd` and make `cd -<TAB>` work.
 setopt autocd
 setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushd_minus
 
+#========================
 # Command history
+#========================
 HISTFILE=$HOME/.cache/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
@@ -44,7 +47,9 @@ setopt hist_save_no_dups         # Don't write duplicate entries in the history 
 setopt hist_reduce_blanks        # Remove superfluous blanks before recording entry.
 setopt hist_verify               # Don't execute immediately upon history expansion.
 
+#========================
 # Prompt customization
+#========================
 autoload -Uz promptinit; promptinit
 prompt spaceship
 SPACESHIP_PROMPT_ORDER=(
@@ -69,6 +74,9 @@ fi
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
+#=====================================
+# Keybindings and other customizations
+#=====================================
 # Fzf scripts
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
