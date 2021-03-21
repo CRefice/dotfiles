@@ -1,0 +1,8 @@
+# Dotfiles-specific ignores
+#==========================================
+# Avoid adding the bare git repo to itself
+.dots/
+
+# Generic ignores
+#==========================================
+compile_commands.json

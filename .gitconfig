@@ -1,0 +1,42 @@
+[user]
+	email = CRefice@gmail.com
+	name = Carlo Refice
+	signingkey = 0x24A55C0B7C7AE7E2ED6CAE3DEB32E29F070D71B9
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[alias]
+	 # one-line log
+	l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+	 # graph log
+	ls = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+
+	news = log -p @{1}..
+
+	a = add
+	ap = add -p
+	c = commit --verbose
+	ca = commit -a --verbose
+	cm = commit -m
+	cam = commit -a -m
+	m = commit --amend --verbose
+
+	d = difftool
+
+	s = status -sb
+	# list branches sorted by last modified
+	b = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+
+	# list aliases
+	la = "!git config -l | grep alias | cut -c 7-"
+[credential]
+	helper = cache
+[pull]
+	rebase = true
+[core]
+	excludesfile = /home/carlo/.gitignore
+[merge]
+	tool = vimdiff
+[commit]
+	gpgsign = true
