@@ -84,6 +84,7 @@ if exists('+termguicolors')
 endif
 
 colorscheme horizon
+unlet g:terminal_ansi_colors
 
 " or this line
 let g:lightline = {'colorscheme' : 'horizon'}
