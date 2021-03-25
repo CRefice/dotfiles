@@ -1,0 +1,62 @@
+#!/bin/bash
+
+set -e
+
+CACHE_DIR="${HOME}/.cache/devenv"
+CONFIG_DIR="${HOME}/.config/devenv"
+SEARCH_PATHS=("${HOME}/code" "${HOME}/uni")
+
+function find_path() {
+	# Prepend each directory in SEARCH_PATHS with the right flag
+	local search_flags="${SEARCH_PATHS[@]/#/--search-path }"
+	# Obtain the first result, and exit with error if none was found
+	fd --type d $search_flags "^$1\$" | head -n 1 | grep .
+}
+
+function find_cache() {
+	local cached="${CACHE_DIR}/$1"
+	# If file is not cached, return false
+	if [[ ! -L "$cached" ]]; then
+		return 1
+	fi
+	# Else check if it's still valid, if not remove it
+	if [[ -d $cached ]]; then
+		readlink -f $cached
+	else
+		rm $cached
+		false
+	fi
+}
+
+function find_project() {
+	if [[ -d "$1" ]]; then
+		echo $1
+	else
+		find_cache $1 || find_path $1
+	fi
+}
+
+# Create cache dir if it doesn't exist
+mkdir -p "$CACHE_DIR"
+
+export PROJ_DIR=$(find_project ${1-$PWD})
+[[ -z $PROJ_DIR ]] && echo "Error: Could not find project directory" && exit 1
+export PROJ_NAME=$(basename $PROJ_DIR)
+
+# Add directory to cache if it doesn't exist
+CACHE_PATH="${CACHE_DIR}/$PROJ_NAME"
+CONFIG_PATH="${CONFIG_DIR}/$PROJ_NAME"
+[[ -L "$CACHE_PATH" ]] || ln -s $PROJ_DIR $CACHE_PATH
+
+tmux new -s $PROJ_NAME -d -c $PROJ_DIR -n "code" 2> /dev/null || exec tmux attach -t $PROJ_NAME
+
+if [ -f $CONFIG_PATH ]; then
+	tmux source $CONFIG_FILE
+else
+	BUILD_DIR="$PROJ_DIR"
+	if [ -d "${BUILD_DIR}/build" ]; then
+		BUILD_DIR="${PROJ_DIR}/build"
+	fi
+	tmux splitw -h -c $BUILD_DIR -p 25
+fi
+exec tmux attach
