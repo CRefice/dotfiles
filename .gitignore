@@ -6,3 +6,4 @@
 # Generic ignores
 #==========================================
 compile_commands.json
+.cache/

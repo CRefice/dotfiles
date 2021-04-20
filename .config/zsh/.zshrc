@@ -51,25 +51,7 @@ setopt hist_verify               # Don't execute immediately upon history expans
 #========================
 # Prompt customization
 #========================
-autoload -Uz promptinit; promptinit
-prompt spaceship
-SPACESHIP_PROMPT_ORDER=(
-  user          # Username section
-  dir           # Current directory section
-  host          # Hostname section
-  git           # Git section (git_branch + git_status)
-  venv          # virtualenv section
-  exec_time     # Execution time
-  line_sep      # Line break
-  jobs          # Background jobs indicator
-  exit_code     # Exit code section
-  char          # Prompt character
-)
-if [ -z "$DISPLAY" ]; then
-	SPACESHIP_CHAR_SYMBOL='> '
-else
-	SPACESHIP_CHAR_SYMBOL='❯ '
-fi
+eval "$(starship init zsh)"
 
 # GPG SSH Agent configuration
 export GPG_TTY=$(tty)
