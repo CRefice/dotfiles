@@ -189,7 +189,7 @@ battery = BAT0
 adapter = AC0
 full-at = 96
 
-format-full = 
+format-full = 
 format-charging = 
 format-discharging = <ramp-capacity>
 format-charging-background = ${colors.battery}
