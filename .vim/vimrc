@@ -12,10 +12,12 @@ if has('mouse')
 endif
 
 " Undo and swapfiles
+let $VIMHOME=expand('<sfile>:p:h')
+let $DIR = $VIMHOME."/tmp"
 set viminfo='20,\"90,h,%
 set dir^=$DIR
 
-set undodir=$DIR/undo/
+set undodir=$HOME/.cache/vim/
 set undofile
 set undolevels=1000
 set undoreload=10000
@@ -37,7 +39,7 @@ set wildmenu
 set fillchars+=vert:\
 
 set completeopt-=preview
-set diffopt=internal,filler,vertical,context:4,indent-heuristic
+set diffopt=internal,filler,vertical,context:4,indent-heuristic,algorithm:patience
 
 " Searching
 set ignorecase
