@@ -23,20 +23,24 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-# start some nice programs
-
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
-fi
-
 export AWT_TOOLKIT=MToolkit
 
-xrandr --dpi 120
-setxkbmap it winkeys
+# If an external monitor is connected, disable the in-built one
+external_monitors=$(xrandr | awk '!/eDP-1/ && / connected / { print$1 }')
+DPI=120
+if [ ! -z "$external_monitors" ]; then
+    xrandr --output eDP-1 --off --output ${external_monitors} --auto
+fi
+
+# If an external keyboard is connected, change keymap from it to us
+if lsusb | grep -qi 'keyboard'; then
+    keymap="us"
+else
+    keymap="it winkeys"
+fi
+
+setxkbmap "$keymap"
 xsetroot -cursor_name left_ptr
-systemctl --user start redshift
 numlockx &
+redshift &
 exec bspwm
