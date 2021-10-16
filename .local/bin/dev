@@ -57,6 +57,6 @@ else
 	if [ -d "${BUILD_DIR}/build" ]; then
 		BUILD_DIR="${PROJ_DIR}/build"
 	fi
-	tmux splitw -h -c $BUILD_DIR -p 25
+	tmux splitw -h -c $BUILD_DIR -p 40
 fi
 exec tmux attach
