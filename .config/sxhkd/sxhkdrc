@@ -17,7 +17,7 @@ XF86MonBrightness{Up,Down}
 XF86Audio{Prev,Next}
 	playerctl {previous,next}
 
-XF86AudioPlay
+XF86Audio{Play,Pause}
 	playerctl play-pause
 
 XF86AudioStop
