@@ -113,7 +113,7 @@ let g:ale_fix_on_save = 1
 set omnifunc=ale#completion#OmniFunc
 
 " Other Plugins
-let g:polyglot_disabled = ['latex']
+let g:polyglot_disabled = ['latex', 'rust']
 let g:vimtex_view_method='zathura'
 let g:tex_flavor = 'latex'
 
