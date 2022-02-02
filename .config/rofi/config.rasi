@@ -1,5 +1,6 @@
+@theme "themes/carbonized.rasi"
 configuration {
-	theme: "sidebar";
 	font: "Iosevka Term 12";
 	modi: "drun,run,ssh,calc";
+	dpi: 120;
 }
