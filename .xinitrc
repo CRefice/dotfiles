@@ -32,14 +32,14 @@ if [ ! -z "$external_monitors" ]; then
     xrandr --output eDP-1 --off --output ${external_monitors} --auto
 fi
 
-# If an external keyboard is connected, change keymap from it to us
-if lsusb | grep -qi 'keyboard'; then
+# If external keyboard is connected, change keymap from it to us
+if lsusb | grep -qi 'Preonic'; then
     keymap="us"
 else
     keymap="it winkeys"
 fi
 
-setxkbmap "$keymap"
+setxkbmap $keymap
 xsetroot -cursor_name left_ptr
 numlockx &
 redshift &
