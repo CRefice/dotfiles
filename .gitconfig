@@ -1,7 +1,6 @@
 [user]
 	email = CRefice@gmail.com
 	name = Carlo Refice
-	signingkey = 0x24A55C0B7C7AE7E2ED6CAE3DEB32E29F070D71B9
 [diff]
 	tool = vimdiff
 [difftool]
@@ -40,5 +39,3 @@
 	excludesfile = /home/carlo/.gitignore
 [merge]
 	tool = vimdiff
-[commit]
-	gpgsign = true
