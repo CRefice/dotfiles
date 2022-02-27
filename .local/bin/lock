@@ -2,20 +2,23 @@
 
 set -e
 
+CACHE_DIR="${HOME}/.cache/i3lock"
+mkdir -p $CACHE_DIR
+
 if [[ $# -eq 0 ]]; then
-	OUTPUT_IMAGE="${HOME}/.cache/i3lock/last"
+	OUTPUT_IMAGE="$CACHE_DIR/last"
 	if [[ ! -f $OUTPUT_IMAGE ]]; then
 		echo "Error: no cached image found. Run the program with an argument for the first time."
 		exit 1
 	fi
 else
 	IMAGE="$(readlink -f $1)"
-	OUTPUT_IMAGE="${HOME}/.cache/i3lock/$(basename $1)"
+	OUTPUT_IMAGE="$CACHE_DIR/$(basename $1)"
 	if [[ ! -f $OUTPUT_IMAGE ]]; then
 		convert $IMAGE -blur 0x3 -brightness-contrast -20x0 $OUTPUT_IMAGE
 	fi
 
-	ln -s "$OUTPUT_IMAGE" "${HOME}/.cache/i3lock/last"
+	ln -s "$OUTPUT_IMAGE" "$CACHE_DIR/last"
 fi
 
 i3lock --force-clock \
