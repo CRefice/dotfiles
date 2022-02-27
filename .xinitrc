@@ -25,12 +25,16 @@ fi
 
 export AWT_TOOLKIT=MToolkit
 
-# If an external monitor is connected, disable the in-built one
+# If an external monitor is connected, disable the in-built one and change the DPI
 external_monitors=$(xrandr | awk '!/eDP-1/ && / connected / { print$1 }')
 DPI=120
 if [ ! -z "$external_monitors" ]; then
+    DPI=101
     xrandr --output eDP-1 --off --output ${external_monitors} --auto
 fi
+
+# Set DPI
+echo "Xft.dpi: $DPI" | xrdb -merge
 
 # If external keyboard is connected, change keymap from it to us
 if lsusb | grep -qi 'Preonic'; then
