@@ -1,7 +1,7 @@
 path+=("${HOME}/.local/bin")
 
-export EDITOR='vim'
-export VISUAL='vim'
+export EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
 # Use smooth touchpad scrolling in firefox
 export MOZ_USE_XINPUT2=1
 # Tell CMake to export compile commands for clang-tidy/clangd

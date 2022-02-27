@@ -1,6 +1,6 @@
 @theme "themes/carbonized.rasi"
 configuration {
 	font: "Iosevka Term 12";
-	modi: "drun,run,ssh,calc";
+	modi: "drun,run,ssh";
 	dpi: 120;
 }
