@@ -11,7 +11,7 @@ XF86AudioMute
 
 # monitor brightness
 XF86MonBrightness{Up,Down}
-	xbacklight -{inc,dec} 10
+	brightness -{inc,dec} 10
 
 # music control
 XF86Audio{Prev,Next}

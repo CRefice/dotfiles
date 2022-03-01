@@ -1,0 +1,10 @@
+#!/bin/bash
+
+MSG_TAG="backlight"
+
+# Inc or dec must be passed as argument to this script
+xbacklight $@
+
+CURRENT="$(xbacklight -get)"
+
+dunstify -u low -i display-brightness -h string:x-dunst-stack-tag:$MSG_TAG -h int:value:$CURRENT "Display Brightness"
