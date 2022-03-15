@@ -7,9 +7,13 @@ export MOZ_USE_XINPUT2=1
 # Tell CMake to export compile commands for clang-tidy/clangd
 export CMAKE_EXPORT_COMPILE_COMMANDS=ON
 
+alias ls='ls --color=auto'
+alias la='ls -A'
+alias ll='ls -lAhF --group-directories-first'
+alias l.="ls -d --group-directories-first .??*" # List only dotfiles (hidden files)
+
 alias yay='paru'
 alias make='make -j'
-alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias g='git'
 alias dots='git --git-dir=$HOME/.dots/ --work-tree=$HOME'

@@ -28,6 +28,13 @@ setopt autocd
 setopt auto_pushd
 setopt pushd_ignore_dups
 setopt pushd_minus
+local parent() {
+	cd ..
+	zle reset-prompt
+}
+zle -N parent
+# Go up one directory with Ctrl+U
+bindkey '^u' parent
 
 #========================
 # Command history
@@ -53,9 +60,14 @@ setopt hist_verify               # Don't execute immediately upon history expans
 #========================
 eval "$(starship init zsh)"
 
-# GPG SSH Agent configuration
-export GPG_TTY=$(tty)
-gpg-connect-agent updatestartuptty /bye >/dev/null
+# SSH Agent configuration
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi
+
 
 #=====================================
 # Keybindings and other customizations

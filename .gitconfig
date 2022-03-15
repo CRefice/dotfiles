@@ -39,3 +39,5 @@
 	excludesfile = /home/carlo/.gitignore
 [merge]
 	tool = vimdiff
+[init]
+	defaultBranch = main
