@@ -1,7 +1,7 @@
 path+=("${HOME}/.local/bin")
 
-export EDITOR=/usr/bin/vim
-export VISUAL=/usr/bin/vim
+export EDITOR=/usr/bin/nvim
+export VISUAL=/usr/bin/nvim
 # Use smooth touchpad scrolling in firefox
 export MOZ_USE_XINPUT2=1
 # Tell CMake to export compile commands for clang-tidy/clangd
@@ -17,6 +17,7 @@ alias make='make -j'
 alias grep='grep --color=auto'
 alias g='git'
 alias dots='git --git-dir=$HOME/.dots/ --work-tree=$HOME'
+alias vim='nvim'
 
 # Alias git (alias) to g(alias)
 ALIASES=($(git config --get-regexp '^alias\.' \
