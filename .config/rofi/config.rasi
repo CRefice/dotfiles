@@ -2,5 +2,6 @@
 configuration {
 	font: "Iosevka Term 12";
 	modi: "drun,run,ssh";
+	sort: true;
 	dpi: 120;
 }
