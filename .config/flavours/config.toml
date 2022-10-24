@@ -1,0 +1,24 @@
+# Commands go through bash
+shell = "bash -c '{}'"
+
+# Neovim
+[[items]]
+file = "~/.config/nvim/lua/base16-colors.lua"
+template = "luatable"
+rewrite = true
+
+# Alacritty
+[[items]]
+file = "~/.config/alacritty/colorscheme.yml"
+template = "alacritty"
+rewrite = true
+
+# Polybar
+[[items]]
+file = "~/.config/polybar/config"
+template = "polybar"
+
+# Dunst
+[[items]]
+file = "~/.config/dunst/dunstrc"
+template = "dunst"

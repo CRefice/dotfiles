@@ -8,8 +8,8 @@
 #
 # All imports must either be absolute paths starting with `/`, or paths relative
 # to the user's home directory starting with `~/`.
-#import:
-#  - /path/to/alacritty.yml
+import:
+  - ~/.config/alacritty/colorscheme.yml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -21,7 +21,7 @@
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
-  #TERM: alacritty
+  #TERM: xterm-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -180,71 +180,6 @@ font:
 
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
-
-schemes:
-  Horizon: &horizon
-    primary:
-      background: '#1C1E27'
-      foreground: '#CACACC'
-
-    normal:
-      black:   '#1c1e27'
-      red:     '#E4436F'
-      green:   '#24E39D'
-      yellow:  '#EDA685'
-      blue:    '#00A5AF'
-      magenta: '#B367CF'
-      cyan:    '#00A5AF'
-      white:   '#CACACC'
-
-    bright:
-      black:   '#6C6F93'
-      red:     '#E4436F'
-      green:   '#24E39D'
-      yellow:  '#EDA685'
-      blue:    '#00A5AF'
-      magenta: '#B367CF'
-      cyan:    '#00A5AF'
-      white:   '#CACACC'
-
-	Catppuccino: &catppuccino
-    # Default colors
-    primary:
-      background: '0x1E1D2F'
-      foreground: '0xD9E0EE'
-
-    # Colors the cursor will use if `custom_cursor_colors` is true
-    cursor:
-      text: '0x1E1D2F'
-      cursor: '0xF5E0DC'
-
-    # Normal colors
-    normal:
-      black:   '0x6E6C7E'
-      red:     '0xF28FAD'
-      green:   '0xABE9B3'
-      yellow:  '0xFAE3B0'
-      blue:    '0x96CDFB'
-      magenta: '0xF5C2E7'
-      cyan:    '0x89DCEB'
-      white:   '0xD9E0EE'
-
-    # Bright colors
-    bright:
-      black:   '0x988BA2'
-      red:     '0xF28FAD'
-      green:   '0xABE9B3'
-      yellow:  '0xFAE3B0'
-      blue:    '0x96CDFB'
-      magenta: '0xF5C2E7'
-      cyan:    '0x89DCEB'
-      white:   '0xD9E0EE'
-
-    indexed_colors:
-      - { index: 16, color: '0xF8BD96' }
-      - { index: 17, color: '0xF5E0DC' }
-
-colors: *horizon
 
 # Bell
 #

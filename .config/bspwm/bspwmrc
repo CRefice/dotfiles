@@ -1,12 +1,10 @@
 #! /bin/sh
 
-# Source colors from wal
-. "${HOME}/.cache/wal/colors.sh"
-
 # launching utility apps
 pgrep -x sxhkd > /dev/null || sxhkd &
 picom -b
-wal -R
+# Set the wallpaper
+~/.fehbg &
 
 bspc monitor -d code browse desktop music
 

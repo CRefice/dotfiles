@@ -16,20 +16,38 @@
 ;
 ;==========================================================
 
+# Start flavours
 [colors]
+base00 = ee1B2B34
+base01 = 343D46
+base02 = 4F5B66
+base03 = 65737E
+base04 = A7ADBA
+base05 = C0C5CE
+base06 = CDD3DE
+base07 = D8DEE9
+base08 = EC5f67
+base09 = F99157
+base0A = FAC863
+base0B = 99C794
+base0C = 5FB3B3
+base0D = 6699CC
+base0E = C594C5
+base0F = AB7967
+# End flavours
 transparent = #00000000
-background = ${xrdb:background:#222}
-background-alt = #444
-foreground = ${xrdb:foreground:#FFF}
-foreground-alt = #666
-alert = #bd2c40
+background = ${colors.base00}
+background-alt = ${colors.base02}
+foreground = ${colors.base05}
+foreground-alt = ${colors.base06}
+alert = ${colors.base08}
 ; Module colors
-wlan = ${xrdb:color6:#9b3dff}
-volume = ${xrdb:color8:#c93b2e}
-battery = ${xrdb:color1:#3db1ff}
-weather = ${xrdb:color8:#c93b2e}
-time = ${xrdb:color4:#23cc4d}
-date = ${xrdb:color5:#f0cc2b}
+wlan = ${colors.base0B}
+volume = ${colors.base0C}
+battery = ${colors.base09}
+weather = ${colors.base0E}
+time = ${colors.base0D}
+date = ${colors.base08}
 
 [geom]
 margin = 2
@@ -46,7 +64,7 @@ radius = 0
 fixed-center = true
 
 background = ${colors.transparent}
-foreground = ${colors.foreground}
+foreground = ${colors.base01}
 
 border-size = 0
 border-color = #FF000000
@@ -71,8 +89,6 @@ cursor-scroll = ns-resize
 
 [module/bspwm]
 type = internal/bspwm
-
-format-foreground = ${colors.background}
 
 label-focused = 
 label-focused-padding = 2
@@ -139,7 +155,9 @@ inherit = module/wlan
 label-connected = %essid%
 label-disconnected = ""
 
+format-connected-foreground = ${colors.foreground}
 format-connected-background = ${colors.background}
+format-disconnected-foreground = ${colors.foreground}
 format-disconnected-background = ${colors.background}
 
 [module/time]
@@ -154,6 +172,7 @@ interval = 1
 
 time = %H:%M
 label = %time%
+format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 
 [module/date]
@@ -168,6 +187,7 @@ interval = 1
 
 date = %A, %b %d
 label = %date%
+format-foreground = ${colors.foreground}
 format-background = ${colors.background}
 
 [module/pulseaudio]
@@ -189,6 +209,7 @@ inherit = module/pulseaudio
 
 format-volume = <label-volume>
 format-muted = ""
+format-volume-foreground = ${colors.foreground}
 format-volume-background = ${colors.background}
 
 label-volume = %percentage%%
@@ -223,8 +244,11 @@ inherit = module/battery
 format-full = <label-full>
 format-charging = <label-charging>
 format-discharging = <label-discharging>
+format-charging-foreground = ${colors.foreground}
 format-charging-background = ${colors.background}
+format-discharging-foreground = ${colors.foreground}
 format-discharging-background = ${colors.background}
+format-full-foreground = ${colors.foreground}
 format-full-background = ${colors.background}
 
 [module/weather]
@@ -238,6 +262,7 @@ label-font = 2
 inherit = module/weather
 exec = ~/.config/polybar/weather.sh
 format-background = ${colors.background}
+format-foreground = ${colors.foreground}
 
 [settings]
 screenchange-reload = true
