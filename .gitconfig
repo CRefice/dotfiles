@@ -1,6 +1,7 @@
 [user]
 	email = CRefice@gmail.com
 	name = Carlo Refice
+	signingkey = ~/.ssh/id_ed25519_sk.pub
 [diff]
 	tool = nvimdiff
 [difftool]
@@ -41,3 +42,9 @@
 	tool = nvimdiff
 [init]
 	defaultBranch = main
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
