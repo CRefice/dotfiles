@@ -26,26 +26,38 @@ vim.opt.completeopt:remove('preview')
 -- Set map leader to easily accessible char
 vim.g.mapleader = ","
 -- Navigate by visual lines rather than file lines
-vim.api.nvim_set_keymap('', 'j', 'gj', {})
-vim.api.nvim_set_keymap('', 'k', 'gk', {})
+vim.keymap.set('', 'j', 'gj', { remap = true })
+vim.keymap.set('', 'k', 'gk', { remap = true })
 -- Search with space
-vim.api.nvim_set_keymap('', '<Space>', '/', { noremap = true })
+vim.keymap.set('', '<Space>', '/')
 -- Quickly save and exit files
-vim.api.nvim_set_keymap('', '<Leader>w', ':w<CR>', {})
-vim.api.nvim_set_keymap('', '<Leader>q', ':qa<CR>', {})
-vim.api.nvim_set_keymap('', '<Leader>x', ':xa<CR>', {})
+vim.keymap.set('', '<Leader>w', ':w<CR>')
+vim.keymap.set('', '<Leader>q', ':qa<CR>')
+vim.keymap.set('', '<Leader>x', ':xa<CR>')
 -- Quickly disable highlighting of search term
-vim.api.nvim_set_keymap('', '<Leader>n', ':nohlsearch<CR>', { silent = true })
+vim.keymap.set('', '<Leader>n', ':nohlsearch<CR>', { silent = true })
 -- Close the quickfix list
-vim.api.nvim_set_keymap('', '<Leader>c', ':cclose<CR>', { silent = true })
--- Pick a file in the current directory using FZF
-vim.api.nvim_set_keymap('', '<Leader>l', ':Files<CR>', {})
--- Grep in the current directory using FZF to list results
-vim.api.nvim_set_keymap('', '<Leader>g', ':Rg<CR>', {})
+vim.keymap.set('', '<Leader>c', ':cclose<CR>', { silent = true })
+vim.keymap.set('', '<Leader>h', ':TSHighlightCapturesUnderCursor<CR>', { silent = true })
+-- Only enable the following mappings when lsp is active
+vim.api.nvim_create_autocmd('LspAttach', {
+	callback = function(args)
+		local opts = { buffer = args.buf, noremap = true, silent = true }
+		vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+		vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+		vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+		vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+		vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+		vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, opts)
+		vim.keymap.set('n', '<C-p>', vim.lsp.buf.signature_help, opts)
+		vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, opts)
+	end
+})
 
-_ = require('plugins')
+local telescope = require('telescope.builtin')
+-- Pick a file in the current directory using telescope
+vim.keymap.set('n', '<Leader>l', function() telescope.find_files() end, { silent = true })
+-- Grep in the current directory using telescope to list results
+vim.keymap.set('n', '<Leader>g', function() telescope.live_grep() end, { silent = true })
 
---[[ Colorscheme --]]
--- Enable 24-bit color codes in the terminal (required by horizon colorscheme)
-vim.opt.termguicolors = true
-vim.cmd('colorscheme horizon')
+vim.cmd [[ colorscheme base16 ]]

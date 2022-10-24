@@ -2,7 +2,7 @@
 	email = CRefice@gmail.com
 	name = Carlo Refice
 [diff]
-	tool = vimdiff
+	tool = nvimdiff
 [difftool]
 	prompt = false
 [alias]
@@ -38,6 +38,6 @@
 [core]
 	excludesfile = /home/carlo/.gitignore
 [merge]
-	tool = vimdiff
+	tool = nvimdiff
 [init]
 	defaultBranch = main
