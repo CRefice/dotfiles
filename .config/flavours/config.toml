@@ -3,9 +3,10 @@ shell = "bash -c '{}'"
 
 # Neovim
 [[items]]
-file = "~/.config/nvim/lua/base16-colors.lua"
+file = "~/.config/nvim/lua/base16-colorscheme.lua"
 template = "luatable"
-rewrite = true
+start = "-- Start flavours"
+end = "-- End flavours"
 
 # Alacritty
 [[items]]

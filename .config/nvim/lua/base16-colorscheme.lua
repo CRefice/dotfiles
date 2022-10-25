@@ -1,4 +1,47 @@
+local function watch_changes(path, on_event)
+	local change_event = vim.loop.new_fs_event()
+
+	local flags = {
+		watch_entry = false, -- true = when dir, watch dir inode, not dir content
+		stat = false, -- true = don't use inotify/kqueue but periodic check, not implemented
+		recursive = false -- true = watch dirs inside dirs
+	}
+
+	change_event:start(path, flags, function(err, _, _)
+		if err then
+			error("failed to reload base16 colorscheme: " .. err)
+			return
+		end
+		vim.schedule(on_event)
+		change_event:stop()
+	end)
+end
+
+local current_file_path = debug.getinfo(1, 'S').short_src
+
 local M = {}
+
+M.colors =
+-- Start flavours
+{
+    base00 = "#1B2B34",
+    base01 = "#343D46",
+    base02 = "#4F5B66",
+    base03 = "#65737E",
+    base04 = "#A7ADBA",
+    base05 = "#C0C5CE",
+    base06 = "#CDD3DE",
+    base07 = "#D8DEE9",
+    base08 = "#EC5f67",
+    base09 = "#F99157",
+    base0A = "#FAC863",
+    base0B = "#99C794",
+    base0C = "#5FB3B3",
+    base0D = "#6699CC",
+    base0E = "#C594C5",
+    base0F = "#AB7967"
+}
+-- End flavours
 
 M.setup = function(colors)
 	local hi = setmetatable({},
@@ -85,8 +128,14 @@ M.setup = function(colors)
 	hi.SpellRare = hi.DiagnosticUnderlineWarn
 	hi.SpellLocal = hi.DiagnosticUnderlineHint
 	hi.SpellCap = hi.DiagnosticUnderlineHint
-end
 
-M.colors = require('base16-colors')
+
+	-- Autoreload scheme on file change
+	watch_changes(current_file_path, function()
+		-- `require()` caches modules, so manually clear the cache to force reload
+		package.loaded["base16-colorscheme"] = nil
+		vim.cmd [[ colorscheme base16 ]]
+	end)
+end
 
 return M
