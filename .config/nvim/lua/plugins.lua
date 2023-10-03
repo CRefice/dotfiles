@@ -1,111 +1,138 @@
--- This file can be loaded by calling `require('plugins')` from your init.lua
-
-local reload_grp = vim.api.nvim_create_augroup("ReloadPluginConfig", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePost", {
-	pattern = "*/nvim/lua/plugins.lua",
-	command = "source <afile> | PackerCompile",
-	desc = "Automatically recompile package loader whenever plugins config file is changed",
-	group = reload_grp
-})
-
-return require('packer').startup(function(use)
-	-- Packer can manage itself
-	use { 'wbthomason/packer.nvim', opt = true }
-	-- Custom statusline
-	use {
+return {
+	{
+		-- Custom statusline
 		'nvim-lualine/lualine.nvim',
-		requires = { 'kyazdani42/nvim-web-devicons', opt = false },
-		config = function() require('lualine').setup {
-				options = {
-					theme = 'auto',
-					component_separators = { left = '', right = '' },
-					section_separators = { left = '', right = '' },
-				},
-				sections = {
-					lualine_a = { 'mode' },
-					lualine_b = { 'branch', 'diff', 'diagnostics' },
-					lualine_c = { 'filename' },
-					lualine_x = { 'filetype' },
-					lualine_y = { 'progress' },
-					lualine_z = { 'location' }
-				},
-			}
-		end
-	}
+		opts = {
+			options = {
+				theme = 'auto',
+				component_separators = { left = '', right = '' },
+				section_separators = { left = '', right = '' },
+			},
+			sections = {
+				lualine_a = { 'mode' },
+				lualine_b = { 'branch', 'diff', 'diagnostics' },
+				lualine_c = { 'filename' },
+				lualine_x = { 'filetype' },
+				lualine_y = { 'progress' },
+				lualine_z = { 'location' }
+			},
+		},
+	},
+	-- Fancy icons in statusbar and other UI elements
+	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	-- Seamless navigation between tmux panes and vim windows
-	use 'christoomey/vim-tmux-navigator'
+	'christoomey/vim-tmux-navigator',
 	-- Git integration
-	use 'tpope/vim-fugitive'
-	-- Show lines changed from last commit in sign column
-	use {
+	'tpope/vim-fugitive',
+	{
+		-- Show lines changed from last commit in sign column
 		'lewis6991/gitsigns.nvim',
-		config = function() require('gitsigns').setup() end
-	}
-	-- Fuzzy file finder and more
-	use {
+		config = true,
+	},
+	{
+		-- Fuzzy file finder and more
 		'nvim-telescope/telescope.nvim',
-		requires = { { 'nvim-lua/plenary.nvim' } }
-	}
-	-- Latex compilation and preview
-	use {
+		dependencies = { 'nvim-lua/plenary.nvim' },
+		keys = {
+			-- Pick a file in the current directory using telescope
+			{ '<leader>ff', '<cmd>Telescope find_files<cr>' },
+			-- Grep in the current directory using telescope to list results
+			{ '<leader>fg', '<cmd>Telescope live_grep<cr>', silent = true },
+			-- Look between buffers
+			{ '<leader>fb', '<cmd>Telescope buffers<cr>' },
+		},
+	},
+	{
+		-- Latex compilation and preview
 		'lervag/vimtex',
 		ft = { 'tex', 'latex' },
-		config = function()
+		init = function()
 			vim.g.vimtex_view_method = 'zathura'
 		end
-	}
-	-- Smart syntax highlighting
-	use {
+	},
+	{
+		-- Smart syntax highlighting
 		'nvim-treesitter/nvim-treesitter',
-		run = ':TSUpdate',
-		config = function() require('nvim-treesitter.configs').setup {
-				highlight = {
+		build = ':TSUpdate',
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter-textobjects',
+			'nvim-treesitter/playground',
+		},
+		main = 'nvim-treesitter.configs',
+		opts = {
+			ensure_installed = { 'c', 'cpp', 'rust', 'python', 'lua', 'javascript', 'typescript' },
+			highlight = { enable = true },
+			indent = { enable = true },
+			textobjects = {
+				select = {
 					enable = true,
-				},
-				playground = {
-					enable = true,
-					disable = {},
-					updatetime = 25, -- Debounced lift time for highlighting nodes in the playground from source code
-					persist_queries = false, -- Whether the query persists across vim sessions
-					keybindings = {
-						toggle_query_editor = 'o',
-						toggle_hl_groups = 'i',
-						toggle_injected_languages = 't',
-						toggle_anonymous_nodes = 'a',
-						toggle_language_display = 'I',
-						focus_language = 'f',
-						unfocus_language = 'F',
-						update = 'R',
-						goto_node = '<cr>',
-						show_help = '?',
+
+					-- Automatically jump forward to textobj, similar to targets.vim
+					lookahead = true,
+
+					keymaps = {
+						-- You can use the capture groups defined in textobjects.scm
+						["af"] = "@function.outer",
+						["if"] = "@function.inner",
+						["ac"] = "@function.call.outer",
+						["ic"] = "@function.call.inner",
 					},
-				}
-			}
-		end
-	}
-	use 'nvim-treesitter/playground'
-	-- Language server integration
-	use {
+					-- You can choose the select mode (default is charwise 'v')
+					--
+					-- Can also be a function which gets passed a table with the keys
+					-- * query_string: eg '@function.inner'
+					-- * method: eg 'v' or 'o'
+					-- and should return the mode ('v', 'V', or '<c-v>') or a table
+					-- mapping query_strings to modes.
+					selection_modes = {
+						['@parameter.outer'] = 'v', -- charwise
+						['@function.outer'] = 'V', -- linewise
+						['@class.outer'] = '<c-v>', -- blockwise
+					},
+					-- If you set this to `true` (default is `false`) then any textobject is
+					-- extended to include preceding or succeeding whitespace. Succeeding
+					-- whitespace has priority in order to act similarly to eg the built-in
+					-- `ap`.
+					--
+					-- Can also be a function which gets passed a table with the keys
+					-- * query_string: eg '@function.inner'
+					-- * selection_mode: eg 'v'
+					-- and should return true of false
+					include_surrounding_whitespace = true,
+				},
+			},
+		},
+	},
+	{
+		-- Language server integration
 		'neovim/nvim-lspconfig',
-		ft = { 'c', 'cpp', 'rust', 'python', 'lua' },
+		ft = { 'c', 'cpp', 'rust', 'python', 'lua', 'javascript', 'typescript' },
 		config = function()
 			local lsp = require('lspconfig')
 			lsp.rust_analyzer.setup {
 				settings = {
 					["rust-analyzer"] = {
-						assist = {
-							importGranularity = "module",
-							importPrefix = "by_self",
+						imports = {
+							granularity = {
+								group = "module",
+							},
+							prefix = "self",
 						},
-						checkOnSave = {
-							command = "clippy"
-						}
+						cargo = {
+							buildScripts = {
+								enable = true,
+							},
+						},
+						procMacro = {
+							enable = true
+						},
 					}
 				},
 			}
 			lsp.clangd.setup {}
 			lsp.pyright.setup {}
-			lsp.sumneko_lua.setup {
+			lsp.tsserver.setup {}
+			lsp.lua_ls.setup {
 				settings = {
 					Lua = {
 						runtime = {
@@ -129,4 +156,4 @@ return require('packer').startup(function(use)
 			}
 		end
 	}
-end)
+}

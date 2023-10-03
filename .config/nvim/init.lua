@@ -38,10 +38,20 @@ vim.keymap.set('', '<Leader>x', ':xa<CR>')
 vim.keymap.set('', '<Leader>n', ':nohlsearch<CR>', { silent = true })
 -- Close the quickfix list
 vim.keymap.set('', '<Leader>c', ':cclose<CR>', { silent = true })
-vim.keymap.set('', '<Leader>h', ':TSHighlightCapturesUnderCursor<CR>', { silent = true })
+-- Navigate through diagnostics
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+-- Show the highlight group under the cursor
+vim.keymap.set('', '<leader>i', ':Inspect<CR>', { silent = true })
+
 -- Only enable the following mappings when lsp is active
 vim.api.nvim_create_autocmd('LspAttach', {
+	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 	callback = function(args)
+		vim.bo[args.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
 		local opts = { buffer = args.buf, noremap = true, silent = true }
 		vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
 		vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
@@ -50,14 +60,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 		vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, opts)
 		vim.keymap.set('n', '<C-p>', vim.lsp.buf.signature_help, opts)
+		vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, opts)
 		vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, opts)
 	end
 })
 
-local telescope = require('telescope.builtin')
--- Pick a file in the current directory using telescope
-vim.keymap.set('n', '<Leader>l', function() telescope.find_files() end, { silent = true })
--- Grep in the current directory using telescope to list results
-vim.keymap.set('n', '<Leader>g', function() telescope.live_grep() end, { silent = true })
-
 vim.cmd [[ colorscheme base16 ]]
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup("plugins")
