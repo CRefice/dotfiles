@@ -4,7 +4,7 @@ set -e
 
 CACHE_DIR="${HOME}/.cache/devenv"
 CONFIG_DIR="${HOME}/.config/devenv"
-SEARCH_PATHS=("${HOME}/code" "${HOME}/uni")
+SEARCH_PATHS=("${HOME}/code")
 
 function find_path() {
 	# Prepend each directory in SEARCH_PATHS with the right flag
@@ -51,7 +51,7 @@ CONFIG_PATH="${CONFIG_DIR}/$PROJ_NAME"
 tmux new -s $PROJ_NAME -d -c $PROJ_DIR -n "code" 2> /dev/null || exec tmux attach -t $PROJ_NAME
 
 if [ -f $CONFIG_PATH ]; then
-	tmux source $CONFIG_FILE
+	tmux source $CONFIG_PATH
 else
 	BUILD_DIR="$PROJ_DIR"
 	if [ -d "${BUILD_DIR}/build" ]; then
