@@ -1,5 +1,5 @@
 local function watch_changes(path, on_event)
-	local change_event = vim.loop.new_fs_event()
+	local change_event = vim.uv.new_fs_event()
 
 	local flags = {
 		watch_entry = false, -- true = when dir, watch dir inode, not dir content
@@ -76,8 +76,10 @@ M.setup = function(colors)
 	hi.Title = { fg = colors.base0A, bold = true }
 	hi.Underlined = { fg = colors.base09, underline = true }
 
-	-- Floating menus
-	hi.Pmenu = { bg = colors.base01 }
+	-- Floating and popup menus
+	hi.NormalFloat = { bg = colors.base01 }
+	hi.FloatBorder = { bg = colors.base01 }
+	hi.Pmenu = hi.NormalFloat
 	hi.PmenuSel = { bg = colors.base03 }
 	hi.PmenuSbar = { bg = colors.base03 }
 

@@ -17,6 +17,8 @@ vim.opt.clipboard:append('unnamedplus')
 -- and ensure that tabs are always inserted as such.
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 -- Enable mouse scrolling in all modes
 vim.opt.mouse = 'a'
 -- Do not show completion preview window
@@ -39,9 +41,6 @@ vim.keymap.set('', '<Leader>n', ':nohlsearch<CR>', { silent = true })
 -- Close the quickfix list
 vim.keymap.set('', '<Leader>c', ':cclose<CR>', { silent = true })
 -- Navigate through diagnostics
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 -- Show the highlight group under the cursor
 vim.keymap.set('', '<leader>i', ':Inspect<CR>', { silent = true })
@@ -50,12 +49,9 @@ vim.keymap.set('', '<leader>i', ':Inspect<CR>', { silent = true })
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 	callback = function(args)
-		vim.bo[args.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
 		local opts = { buffer = args.buf, noremap = true, silent = true }
 		vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
 		vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-		vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 		vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
 		vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 		vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, opts)
@@ -67,8 +63,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 vim.cmd [[ colorscheme base16 ]]
 
+-- Bootstrap and initialize lazy.nvim plugin manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
 		"clone",

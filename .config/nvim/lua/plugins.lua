@@ -78,7 +78,6 @@ return {
 						["ic"] = "@function.call.inner",
 					},
 					-- You can choose the select mode (default is charwise 'v')
-					--
 					-- Can also be a function which gets passed a table with the keys
 					-- * query_string: eg '@function.inner'
 					-- * method: eg 'v' or 'o'
@@ -112,6 +111,9 @@ return {
 			lsp.rust_analyzer.setup {
 				settings = {
 					["rust-analyzer"] = {
+						checkOnSave = {
+							command = "clippy",
+						},
 						imports = {
 							granularity = {
 								group = "module",
