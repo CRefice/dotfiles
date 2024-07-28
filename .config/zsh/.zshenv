@@ -2,8 +2,8 @@ path+=("${HOME}/.local/bin")
 
 export EDITOR=/usr/bin/nvim
 export VISUAL=/usr/bin/nvim
-# Use smooth touchpad scrolling in firefox
-export MOZ_USE_XINPUT2=1
+# Start firefox in wayland mode instead of X compatibility mode
+export MOZ_ENABLE_WAYLAND=1
 # Tell CMake to export compile commands for clang-tidy/clangd
 export CMAKE_EXPORT_COMPILE_COMMANDS=ON
 

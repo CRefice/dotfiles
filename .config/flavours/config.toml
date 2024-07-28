@@ -14,11 +14,6 @@ file = "~/.config/alacritty/colorscheme.yml"
 template = "alacritty"
 rewrite = true
 
-# Polybar
-[[items]]
-file = "~/.config/polybar/config"
-template = "polybar"
-
 # Dunst
 [[items]]
 file = "~/.config/dunst/dunstrc"

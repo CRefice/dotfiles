@@ -1,4 +1,4 @@
-# Launch X on startup
-if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
-  startx
+# Launch sway on startup
+if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+  sway
 fi

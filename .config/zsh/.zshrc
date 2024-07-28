@@ -60,15 +60,6 @@ setopt hist_verify               # Don't execute immediately upon history expans
 #========================
 eval "$(starship init zsh)"
 
-# SSH Agent configuration
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-if [[ ! "$SSH_AUTH_SOCK" ]]; then
-    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
-fi
-
-
 #=====================================
 # Keybindings and other customizations
 #=====================================
