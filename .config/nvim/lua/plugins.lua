@@ -133,7 +133,7 @@ return {
 			}
 			lsp.clangd.setup {}
 			lsp.pyright.setup {}
-			lsp.tsserver.setup {}
+			lsp.ts_ls.setup {}
 			lsp.lua_ls.setup {
 				settings = {
 					Lua = {
