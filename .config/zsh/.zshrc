@@ -70,3 +70,16 @@ export FZF_DEFAULT_COMMAND='rg --files --follow --glob "!.git/*"'
 
 # Syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+#=================
+# SSH Agent setup
+#=================
+
+# Check if ssh-agent is already running. If not, save its output to temporary env file
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+# Source existing output file to enable the agent
+if [ ! -f "$SSH_AUTH_SOCK" ]; then
+    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi
