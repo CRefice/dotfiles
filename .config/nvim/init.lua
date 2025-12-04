@@ -42,6 +42,7 @@ vim.keymap.set('', '<Leader>n', ':nohlsearch<CR>', { silent = true })
 vim.keymap.set('', '<Leader>c', ':cclose<CR>', { silent = true })
 -- Navigate through diagnostics
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<C-w>d', vim.diagnostic.open_float)
 -- Show the highlight group under the cursor
 vim.keymap.set('', '<leader>i', ':Inspect<CR>', { silent = true })
 

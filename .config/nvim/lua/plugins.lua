@@ -105,15 +105,15 @@ return {
 	{
 		-- Language server integration
 		'neovim/nvim-lspconfig',
-		ft = { 'c', 'cpp', 'rust', 'python', 'lua', 'javascript', 'typescript' },
+		ft = { 'c', 'cpp', 'rust', 'python', 'lua', 'javascript', 'typescript', 'nix' },
 		config = function()
-			local lsp = require('lspconfig')
-			lsp.rust_analyzer.setup {
+			vim.lsp.config("rust_analyzer", {
 				settings = {
 					["rust-analyzer"] = {
-						checkOnSave = {
+						checkOnSave = true,
+                        check = {
 							command = "clippy",
-						},
+                        },
 						imports = {
 							granularity = {
 								group = "module",
@@ -130,11 +130,8 @@ return {
 						},
 					}
 				},
-			}
-			lsp.clangd.setup {}
-			lsp.pyright.setup {}
-			lsp.ts_ls.setup {}
-			lsp.lua_ls.setup {
+			})
+			vim.lsp.config("lua_ls", {
 				settings = {
 					Lua = {
 						runtime = {
@@ -155,7 +152,13 @@ return {
 						},
 					}
 				}
-			}
+			})
+            vim.lsp.enable("rust_analyzer")
+            vim.lsp.enable("clangd")
+            vim.lsp.enable("pyright")
+            vim.lsp.enable("lua_ls")
+            vim.lsp.enable("ts_ls")
+            vim.lsp.enable("nixd")
 		end
 	}
 }
