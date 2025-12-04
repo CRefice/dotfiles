@@ -1,0 +1,16 @@
+#:schema https://jj-vcs.github.io/jj/latest/config-schema.json
+
+[user]
+name = "Carlo Refice"
+email = "CRefice@gmail.com"
+
+[ui]
+default-command = "log"
+
+[aliases]
+push = ["util", "exec", "--", "bash", "-c", """
+#!/usr/bin/env bash
+set -euo pipefail
+jj bookmark move $1
+jj git push
+""", ""]
